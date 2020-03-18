@@ -1,8 +1,33 @@
 # hataldir_infra
 hataldir Infra repository
 
+testapp_IP = 35.195.223.202
+testapp_port = 9292
+
+Домашнее задание № 4
+
+Установлен gcloud, с его помощью создана ВМ reddit-app, на нее поставлены ruby, bundler, mongodb и тестовое приложение. К ВМ предоставлен доступ на порт 9292.
+Для установки пакетов и запуска приложения написаны скрипты.
+
+Дополнительное задание 1:
+
+Написан скрипт startup_script, добавлен в команду создания ВМ:
+
+gcloud compute instances create reddit-app2  --boot-disk-size=10GB   --image-family ubuntu-1604-lts   --image-project=ubuntu-os-cloud   --machine-type=g1-small   --tags puma-server   --restart-on-failure --metadata-from-file startup-script=startup_script.sh
+
+
+Дополнительное задание 2:
+
+Создано правило фаерволла с помощью gcloud:
+
+gcloud compute firewall-rules create default-puma-server --allow tcp:9292 --target-tags=puma-server
+
+
+
 bastion_IP = 35.210.206.2
 someinternalhost_IP = 10.132.0.3
+
+Домашнее задание № 3
 
 Конфигурация:
 
