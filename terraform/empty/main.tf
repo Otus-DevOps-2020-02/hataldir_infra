@@ -1,18 +1,26 @@
-resource "google_compute_instance" "db" {
-  name = "reddit-db"
+provider "google" {
+  version = "~>2.15"
+  project = var.project
+  region  = var.region
+  zone    = var.zone
+}
+
+
+resource "google_compute_instance" "empty" {
+  name = "empty"
   #  project = var.project
   machine_type = "g1-small"
   zone         = var.zone
   tags         = ["reddit-db"]
   boot_disk {
     initialize_params {
-      image = var.db_disk_image
+      image = var.disk_image
     }
   }
   network_interface {
     network = "default"
     access_config {
-      nat_ip = google_compute_address.db_ip.address
+#      nat_ip = google_compute_address.db_ip.address
     }
   }
   metadata = {
@@ -31,22 +39,4 @@ resource "google_compute_instance" "db" {
 #    script = "${path.module}/change.sh"
 #  }
 
-}
-
-resource "google_compute_firewall" "firewall_mongo" {
-  name    = "allow-mongo-default"
-  network = "default"
-  allow {
-    protocol = "tcp"
-    ports    = ["27017"]
-  }
-  target_tags = ["reddit-db"]
-  #  source_tags = ["reddit-app"]
-
-
-}
-
-
-resource "google_compute_address" "db_ip" {
-  name = "reddit-db-ip"
 }

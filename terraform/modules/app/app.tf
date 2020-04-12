@@ -26,28 +26,28 @@ resource "google_compute_instance" "app" {
     private_key = file(var.private_key_path)
   }
   # Create service
-  provisioner "file" {
-    source      = "${path.module}/puma.service"
-    destination = "/tmp/puma.service"
-  }
+#  provisioner "file" {
+#    source      = "${path.module}/puma.service"
+#    destination = "/tmp/puma.service"
+# }
 
-  provisioner "file" {
-    source      = "${path.module}/var.sh"
-    destination = "/tmp/var.sh"
-  }
+#  provisioner "file" {
+#    source      = "${path.module}/var.sh"
+#    destination = "/tmp/var.sh"
+#  }
 
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/var.sh",
-      "/tmp/var.sh ${var.db_ip_address}",
-    ]
-  }
+#  provisioner "remote-exec" {
+#    inline = [
+#      "chmod +x /tmp/var.sh",
+#      "/tmp/var.sh ${var.db_ip_address}",
+#    ]
+# }
 
 
-  # Deploy app
-  provisioner "remote-exec" {
-    script = "${path.module}/deploy.sh"
-  }
+#  # Deploy app
+#  provisioner "remote-exec" {
+#    script = "${path.module}/deploy.sh"
+#  }
 
 }
 

@@ -4,8 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-Environment=DATABASE_URL=changeme
-#EnvironmentFile=/home/appuser/db_config
+EnvironmentFile=/home/appuser/db_config
 User=appuser
 WorkingDirectory=/home/appuser/reddit
 ExecStart=/usr/local/bin/puma

@@ -14,7 +14,7 @@
             "image_family": "reddit-app-base",
             "source_image_family": "{{user `source_image_family`}}",
             "zone": "europe-west1-b",
-            "ssh_username": "root",
+            "ssh_username": "appuser",
             "machine_type": "{{user `machine_type`}}",
 	    "disk_size": "10",
 	    "disk_type": "pd-standard",
@@ -26,8 +26,9 @@
     ],
     "provisioners": [
         {
-	    "type": "ansible",
-	    "playbook_file": "ansible/packer_app.yml"
+            "type": "shell",
+            "script": "scripts/install_ruby.sh",
+            "execute_command": "sudo {{.Path}}"
         }
     ]
 }
