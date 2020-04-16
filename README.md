@@ -1,6 +1,25 @@
 # hataldir_infra
 hataldir Infra repository
 
+[![Build Status](https://travis-ci.org/Otus-DevOps-2020-02/hataldir_infra.svg?branch=master)](https://travis-ci.org/Otus-DevOps-2020-02/hataldir_infra)
+
+Домашнее задание № 10
+
+Плейбуки app и db преобразованы в роли.
+Созданы окружения stage и prod.
+В app добавлена community роль jdauphant.nginx. В терраформ добавлено создание правила фаерволла, открывающего 80 порт.
+Создан плейбук users.yml для добавления пользователей на виртуалки. Список пользователей берется из файла credentials.yml, разного для разных окружений. Файлы credentials.yml зашифрованы ansible-vault.
+
+
+Дополнительное задание 1
+
+Сделано в прошлом ДЗ, только изменены пути в конфигах терраформа. Разные для stage и prod.
+
+Дополнительное задание 2
+
+Установлены tflint, ansible-lint. Добавлены проверки packer, terraform, ansible в .travis.yml. Добавлен badge TravisCI в readme.
+Установлен trytravis, создан для него репозиторий в github. На нем проведена отладка работы TravisCi.
+
 
 Домашнее задание № 9
 

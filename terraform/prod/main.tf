@@ -32,3 +32,17 @@ module "vpc" {
     source_ranges = ["85.235.46.178/32"]
 
 }
+
+data "template_file" "inventory" {
+    template = "${file("inventory.tpl")}"
+
+    vars = {
+       app_ip = "${module.app.app_static_ip}"
+       db_ip = "${module.db.db_static_ip}"
+    }
+}
+
+resource "local_file" "save_inventory" {
+  content  = data.template_file.inventory.rendered
+  filename = "../../ansible/environments/prod/inventory.yml"
+}
