@@ -1,13 +1,18 @@
-dist: trusty
+#dist: trusty
+dist: bionic
 language: bash
 before_install:
 - curl https://raw.githubusercontent.com/express42/otus-homeworks/2020-02/run.sh |
   bash
 
-#addons:
-#  apt:
-#    packages:
+addons:
+  apt:
+    packages:
 #    - python-pip
+    - ansible
+    - ansible-lint
+  snaps:
+   - terraform
 
 install:
 #  - pip install --upgrade pip
@@ -15,15 +20,17 @@ install:
 #  - ansible --version
 #  - sudo pip install ansible>=2.4
 #  - pip install ansible-lint
-#  - curl -L "$(curl -Ls https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" -o tflint.zip && unzip tflint.zip && rm tflint.zip
+  - curl -L "$(curl -Ls https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" -o tflint.zip && unzip tflint.zip && rm tflint.zip
 
-  - cd ansible; ansible-lint --exclude roles/jdauphant.nginx; cd ..
+#  - cd ansible; ansible-lint *.yml --exclude roles/jdauphant.nginx; cd ..
   - packer validate packer/app.json
   - packer validate packer/db.json
-  - terrafrom validate terraform/stage
-  - terrafrom validate terraform/prod
-  - tflint terraform/stage
-  - tflint validate terraform/prod
+  - ./tflint terraform/stage
+  - ./tflint terraform/prod
+  - cd terraform/stage; terraform validate; cd ../..
+  - cd terraform/prod; terraform validate; cd ../..
+#  - find . -name *.yml | xargs ansible-lint --exclude roles/jdauphant.nginx
+  - cd ansible/playbooks; ansible-lint *.yml
 
 notifications:
   slack:
