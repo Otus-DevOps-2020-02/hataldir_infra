@@ -3,26 +3,5 @@
   hosts: all
   become: yes
 
-  tasks:
-#    - name: Add APT key
-#      apt_key:
-#        id: "0xd68fa50fea312927"
-# EA312927
-# 0xd68fa50fea312927
-#        keyserver: keyserver.ubuntu.com
-
-    - name: Add repository
-      apt_repository:
-        repo: deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse
-        state: present
-
-    - name: Install mongodb
-      apt:
-        name: mongodb-org
-        state: present
-        allow_unauthenticated: yes
-
-    - name: Enable mongod
-      systemd:
-        name: mongod
-        enabled: yes
+  roles:
+    - db

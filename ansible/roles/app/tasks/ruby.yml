@@ -1,0 +1,6 @@
+- name: Install packets
+  apt:
+    update_cache: yes
+    name: ['ruby-full', 'ruby-bundler', 'build-essential']
+    state: present
+  tags: install

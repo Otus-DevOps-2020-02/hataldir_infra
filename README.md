@@ -3,6 +3,48 @@ hataldir Infra repository
 
 [![Build Status](https://travis-ci.org/Otus-DevOps-2020-02/hataldir_infra.svg?branch=master)](https://travis-ci.org/Otus-DevOps-2020-02/hataldir_infra)
 
+Домашнее задание № 11
+
+Vagrant.
+
+Установлен VirtualBox (с установкой огромого количества библиотек по причине серверной, а не десктопной версии Ubuntu и включением VT-x на виртуалке). Установлен Vagrant.
+Описаны в Vagrantfile две машины - dbserver и appserver. В каждую из них добавлены провиженеры, вызывающие наш плейбук site.yml с соответствующим инвентори.
+Установка питона в машины с помощью отдельного плейбука не понадобилась.
+
+В роль db добавлена установка MongoDB из в виде плейбука install_mongo.yml и вынесена из плейбука main.yml в config_mongo.yml настройка MongoDB.
+
+В роль app добавлена установка Ruby в виде плейбука ruby.yml. настройка puma вынесена в отдельный плейбук puma.yml.
+Файл puma.service преобразован в темплейт, в нем и во всех плейбуках захардкоденное имя пользователя appuser заменено на переменную deploy_user. В Vagrantfile эта переменная определена как "vagrant".
+
+Выполнены все провиженеры, инфраструктура поднята на vagrant.
+
+Molecule.
+
+Установлены virtualenv, Molecule, Testinfra. Установлен не упомянутый в описании ДЗ molecule-vagrant.
+
+В molecule инициализирована роль db. Написан тест test_default.py.
+В файл molecule.yml внесены нужные нам драйвер (vagrant), провайдер (virtualbox), образ (ubuntu/xenial64), не упомянутый в описании ДЗ verifier (testinfra).
+Создан инстанс (molecule create).
+Внесены изменения в файл converge.yml (теперь он называется не playbook.yml) - become:true и переменная mongo_bind_ip.
+Конвергенция выполнена (molecule converge).
+Проведены тесты (molecule verify).
+В test_default.py внесен еще один тест - проверка доступности порта 27017 (модуль socket). Проверка выполнена.
+
+
+
+
+
+
+Дополнительное задание 1:
+
+Настройки nginx внесены в плейбук app.yml.
+
+
+
+
+
+
+
 Домашнее задание № 10
 
 Плейбуки app и db преобразованы в роли.
