@@ -1,2 +1,7 @@
 - src: jdauphant.nginx
   version: v2.21.1
+
+- name: hataldir.db
+  src: git@github.com:hataldir/db.git
+  scm: git
+  version: master

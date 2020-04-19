@@ -1,15 +1,6 @@
 - name: Install Ruby
   hosts: all
   become: true
-  tasks:
 
-    - name: Install packets
-      apt:
-        update_cache: yes
-        name: ['ruby-full', 'ruby-bundler', 'build-essential']
-#        name: "{{ item }}"
-        state: present
-#      with_items:
-#        -  ruby_full
-#        -  ruby_bundler
-#        -  build_essential
+  roles:
+    - app
